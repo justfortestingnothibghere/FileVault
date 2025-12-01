@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white text-center">
+        <h4><i class="fas fa-plus"></i> Add Website to KeepAlive</h4>
+      </div>
+      <div class="card-body">
+        <form method="POST">
+          {{ form.hidden_tag() }}
+          <div class="row g-3">
+            <div class="col-md-7">
+              {{ form.url.label(class="form-label") }}
+              {{ form.url(class="form-control", placeholder="https://yoursite.onrender.com") }}
+            </div>
+            <div class="col-md-5">
+              {{ form.password.label(class="form-label") }}
+              {{ form.password(class="form-control", placeholder="Optional login password") }}
+            </div>
+            <div class="col-md-4">
+              {{ form.method.label(class="form-label") }}
+              {{ form.method(class="form-select") }}
+            </div>
+            <div class="col-md-8">
+              {{ form.interval_min.label(class="form-label") }}
+              <div class="input-group">
+                {{ form.interval_min(class="form-control") }}
+                <span class="input-group-text">to</span>
+                {{ form.interval_max(class="form-control") }}
+                <span class="input-group-text">sec</span>
+              </div>
+              <small class="text-muted">Min: 5s | Max: 10min</small>
+            </div>
+            <div class="col-12 text-center mt-4">
+              <button type="submit" class="btn btn-success btn-lg px-5">
+                <i class="fas fa-paper-plane"></i> Submit & Start
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <hr>
+        <div class="text-center">
+          <button onclick="loadDemo()" class="btn btn-outline-info">
+            <i class="fas fa-play"></i> Load Demo: filevault-61ij.onrender.com
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
