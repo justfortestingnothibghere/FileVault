@@ -7,7 +7,7 @@ import socket
 import requests
 import time
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates', static_folder='static')
 app.secret_key = 'pingr-pro-999-secret'
 
 # === DATABASE CONNECT ===
