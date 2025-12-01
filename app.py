@@ -109,7 +109,7 @@ def api_stats():
     return jsonify({'total': total, 'active': active, 'failed': failed})
 
 # Init DB
-@app.before_first_request
+@app.before_request
 def create_tables():
     db.create_all()
     # Load demo site
