@@ -27,8 +27,13 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form['email']
-        pwd = hash_password(request.form['password'])
+        email = request.form.get('email')
+        password = request.form.get('password')
+        if not email or not password:
+            flash('Missing email or password!')
+            return render_template('login.html')
+        
+        pwd = hash_password(password)
         
         db = get_db()
         cur = db.cursor()
@@ -42,15 +47,21 @@ def login():
             session['role'] = user[7]
             return redirect('/dashboard')
         flash('Wrong email or password!')
-    return open('login.html').read()
+    return render_template('login.html')
 
 # === SIGNUP ===
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        pwd = hash_password(request.form['password'])
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        if not all([username, email, password]):
+            flash('All fields required!')
+            return render_template('signup.html')
+        
+        pwd = hash_password(password)
         
         db = get_db()
         cur = db.cursor()
@@ -60,11 +71,13 @@ def signup():
             db.commit()
             flash('Account created! Login now.')
             return redirect('/login')
-        except:
-            flash('Email or username taken!')
-        db.close()
-    return open('login.html').read().replace('Login', 'Sign Up').replace('name="email"', 'name="email"').replace('name="password"', 'name="username"')
-
+        except Exception as e:
+            db.rollback()
+            flash('Email or username already taken!')
+        finally:
+            db.close()
+    return render_template('signup.html')
+    
 # === DASHBOARD ===
 @app.route('/dashboard')
 def dashboard():
