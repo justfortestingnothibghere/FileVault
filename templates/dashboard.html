@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - PINGR PRO</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Hello, {{ session['username'] }}!</h1>
+    <a href="/logout">Logout</a> | 
+    {% if session['role'] == 'admin' %}<a href="/admin">Admin Panel</a>{% endif %}
+    
+    <h2>Add Project</h2>
+    <form method="POST" action="/add">
+        <input name="name" placeholder="Name" required>
+        <input name="url" placeholder="https://example.com" required>
+        <select name="type">
+            <option value="http">HTTP</option>
+            <option value="icmp">ICMP</option>
+        </select>
+        <button>Add</button>
+    </form>
+
+    <h2>Your Projects</h2>
+    <div class="projects">
+        <!-- PROJECTS -->
+    </div>
+</div>
+</body>
+</html>
