@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Hello, {{ session['username'] }}!</h1>
+    <h1>Hello, {{ session.username }}!</h1>
     <a href="/logout">Logout</a> | 
     {% if session['role'] == 'admin' %}<a href="/admin">Admin Panel</a>{% endif %}
     
